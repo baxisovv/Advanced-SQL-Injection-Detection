@@ -1,0 +1,708 @@
+2026-05-01 21:34:10,397 - [INFO] - ================================================================================
+2026-05-01 21:34:10,397 - [INFO] - COMPREHENSIVE SQL INJECTION DETECTION EXPERIMENT SUITE
+2026-05-01 21:34:10,413 - [INFO] - ================================================================================
+2026-05-01 21:34:10,413 - [INFO] - 
+================================================================================
+2026-05-01 21:34:10,413 - [INFO] - EXPERIMENT 1: Baseline (Full features, no tuning)
+2026-05-01 21:34:10,413 - [INFO] - ================================================================================
+2026-05-01 21:34:10,413 - [INFO] - Loading dataset...
+2026-05-01 21:34:51,688 - [INFO] - Initial sampled dataset: 600000 rows (benign=500000, malicious=100000)
+2026-05-01 21:34:52,301 - [INFO] - Applying random undersampling with ratio 1.0...
+2026-05-01 21:34:52,338 - [INFO] - Original class distribution: Counter({0: 320000, 1: 64000})
+2026-05-01 21:34:53,019 - [INFO] - Resampled class distribution: Counter({1: 64000, 0: 64000})
+2026-05-01 21:34:53,019 - [INFO] - Reduction: 384000 -> 128000 samples (33.3%)
+2026-05-01 21:34:53,069 - [INFO] - Train (after undersampling): 128000 rows [malicious=64000 (50.0%) benign=64000]
+2026-05-01 21:34:53,069 - [INFO] - Val : 96000 rows [malicious=16000 (16.7%) benign=80000]
+2026-05-01 21:34:53,070 - [INFO] - Test: 105263 rows [malicious=5263 (5.0%) benign=100000]
+2026-05-01 21:34:53,261 - [INFO] - [baseline] Fitting preprocessor (use_tfidf=True, chi_square=False)...
+2026-05-01 21:34:53,262 - [INFO] - Extracting extended structural features (22 features)...
+2026-05-01 21:35:03,940 - [INFO] - Fitting TF-IDF (max_features=150, ngram_range=(3, 5))...
+2026-05-01 21:35:14,321 - [INFO] - TF-IDF matrix shape: (128000, 150)
+2026-05-01 21:35:43,278 - [INFO] - Preprocessor saved -> ./models_out/preprocessor_baseline.pkl
+2026-05-01 21:35:43,278 - [INFO] - [baseline] Feature matrix shape after processing: train=(128000, 172) val=(96000, 172) test=(105263, 172)
+2026-05-01 21:35:43,278 - [INFO] - [baseline] Performing Chi-Square Feature Analysis...
+2026-05-01 21:35:43,336 - [INFO] - 
+Top 30 Features by Chi-Square Score:
+2026-05-01 21:35:43,337 - [INFO] - ================================================================================
+2026-05-01 21:35:43,343 - [INFO] - 
+                  Feature   Chi2_Score  P_Value Feature_Type
+  comment_indicator_count 56677.000000      0.0   Structural
+punctuation_cluster_count 48588.365287      0.0   Structural
+        parenthesis_depth 18559.975156      0.0   Structural
+  max_consecutive_special 15980.721006      0.0   Structural
+   max_consecutive_digits 12368.940149      0.0   Structural
+     quote_mismatch_score  9927.000000      0.0   Structural
+              token_count  9650.779313      0.0   Structural
+                 tfidf_33  8050.985783      0.0       TF-IDF
+         avg_token_length  7433.707132      0.0   Structural
+                  tfidf_1  6293.493405      0.0       TF-IDF
+                  tfidf_2  6138.511493      0.0       TF-IDF
+                 tfidf_23  4283.713044      0.0       TF-IDF
+                 tfidf_22  4283.713044      0.0       TF-IDF
+                 tfidf_34  4085.831364      0.0       TF-IDF
+                  tfidf_0  3977.381713      0.0       TF-IDF
+                 tfidf_70  3447.950706      0.0       TF-IDF
+comparison_operator_count  2732.059630      0.0   Structural
+                 tfidf_38  2520.466318      0.0       TF-IDF
+                 tfidf_37  2020.045530      0.0       TF-IDF
+          semicolon_count  2009.000000      0.0   Structural
+                tfidf_113  1953.064525      0.0       TF-IDF
+                 tfidf_66  1953.064525      0.0       TF-IDF
+                tfidf_114  1953.064525      0.0       TF-IDF
+                 tfidf_98  1953.064525      0.0       TF-IDF
+                 tfidf_97  1953.064525      0.0       TF-IDF
+                 tfidf_16  1938.459861      0.0       TF-IDF
+                 tfidf_15  1938.459861      0.0       TF-IDF
+                 tfidf_96  1926.468481      0.0       TF-IDF
+                 tfidf_86  1875.957338      0.0       TF-IDF
+                  tfidf_3  1833.612482      0.0       TF-IDF
+2026-05-01 21:35:43,343 - [INFO] - 
+================================================================================
+2026-05-01 21:35:43,344 - [INFO] - Summary by Feature Type:
+2026-05-01 21:35:43,344 - [INFO] - ================================================================================
+2026-05-01 21:35:43,355 - [INFO] - In top 20 features:
+Feature_Type
+Structural    10
+TF-IDF        10
+2026-05-01 21:35:43,875 - [INFO] - [baseline] Chi-Square analysis saved to ./figures/
+2026-05-01 21:35:43,875 - [INFO] - [baseline] Starting cross-validation for confidence intervals...
+2026-05-01 21:35:43,875 - [INFO] - ------------------------------------------------------------
+2026-05-01 21:35:43,875 - [INFO] - Cross-validation: 5-fold stratified KFold on training data
+2026-05-01 21:35:43,876 - [INFO] - ------------------------------------------------------------
+2026-05-01 21:35:43,888 - [INFO] -   Fold 1/5 ...
+2026-05-01 21:36:16,424 - [INFO] -   Fold 2/5 ...
+2026-05-01 21:36:49,568 - [INFO] -   Fold 3/5 ...
+2026-05-01 21:37:23,106 - [INFO] -   Fold 4/5 ...
+2026-05-01 21:37:56,234 - [INFO] -   Fold 5/5 ...
+2026-05-01 21:38:29,646 - [INFO] - ------------------------------------------------------------
+2026-05-01 21:38:29,646 - [INFO] - Model                  Mean F1      Std      95% CI
+2026-05-01 21:38:29,646 - [INFO] - ------------------------------------------------------------
+2026-05-01 21:38:29,646 - [INFO] -   DecisionTree          0.9986    0.0003    +/-0.0002
+2026-05-01 21:38:29,646 - [INFO] -   RandomForest          0.9996    0.0002    +/-0.0001
+2026-05-01 21:38:29,646 - [INFO] -   ExtraTrees            0.9997    0.0002    +/-0.0001
+2026-05-01 21:38:29,646 - [INFO] -   XGBoost               1.0000    0.0000    +/-0.0000
+2026-05-01 21:38:29,646 - [INFO] -   LightGBM              0.9999    0.0000    +/-0.0000
+2026-05-01 21:38:29,646 - [INFO] -   IsolationForest       0.6828    0.0078    +/-0.0068
+2026-05-01 21:38:29,668 - [INFO] - 
+[baseline] CV Summary:
+          Model  CV_Mean_F1  CV_Std_F1  CV_95CI
+   DecisionTree    0.998578   0.000280 0.000246
+   RandomForest    0.999617   0.000152 0.000133
+     ExtraTrees    0.999672   0.000160 0.000140
+        XGBoost    0.999969   0.000033 0.000029
+       LightGBM    0.999930   0.000033 0.000029
+IsolationForest    0.682759   0.007759 0.006801
+
+2026-05-01 21:38:29,669 - [INFO] - [baseline] Training models (tune=False, ensembles=False)...
+2026-05-01 21:38:29,670 - [INFO] - Initiating model training phase...
+2026-05-01 21:38:29,670 - [INFO] -   Training set: 128000 samples (benign=64000, malicious=64000)
+2026-05-01 21:38:38,649 - [INFO] -   DecisionTree       -> 8.98s
+2026-05-01 21:39:07,079 - [INFO] -   RandomForest       -> 28.43s
+2026-05-01 21:39:32,583 - [INFO] -   ExtraTrees         -> 25.50s
+2026-05-01 21:39:35,747 - [INFO] -   XGBoost            -> 3.16s
+2026-05-01 21:39:39,605 - [INFO] -   LightGBM           -> 3.86s
+2026-05-01 21:39:41,535 - [INFO] -   IsolationForest    trained on 64000 benign samples. Score range: [-0.0762, 0.0825]
+2026-05-01 21:39:41,535 - [INFO] -   IsolationForest    -> 1.93s
+2026-05-01 21:39:41,661 - [INFO] - [baseline] Models serialized to ./models_out/
+2026-05-01 21:39:41,661 - [INFO] - [baseline] Evaluating on test set...
+2026-05-01 21:39:41,661 - [INFO] - ------------------------------------------------------------
+2026-05-01 21:39:41,661 - [INFO] - Phase 1 - Optimal threshold search on VALIDATION set
+2026-05-01 21:39:41,661 - [INFO] - ------------------------------------------------------------
+2026-05-01 21:39:41,724 - [INFO] -   [DecisionTree        ]  Val F1=0.9961  ->  locked threshold=1.0000
+2026-05-01 21:39:42,052 - [INFO] -   [RandomForest        ]  Val F1=0.9993  ->  locked threshold=0.7200
+2026-05-01 21:39:42,484 - [INFO] -   [ExtraTrees          ]  Val F1=0.9991  ->  locked threshold=0.6600
+2026-05-01 21:39:42,667 - [INFO] -   [XGBoost             ]  Val F1=0.9999  ->  locked threshold=0.6467
+2026-05-01 21:39:42,831 - [INFO] -   [LightGBM            ]  Val F1=0.9999  ->  locked threshold=0.8243
+2026-05-01 21:39:44,093 - [INFO] -   [IsolationForest     ]  Val F1=0.3617  ->  locked threshold=0.4536
+2026-05-01 21:39:44,093 - [INFO] - ------------------------------------------------------------
+2026-05-01 21:39:44,093 - [INFO] - Phase 2 - Final evaluation on TEST set (threshold locked from val)
+2026-05-01 21:39:44,093 - [INFO] - ------------------------------------------------------------
+2026-05-01 21:39:44,181 - [INFO] -   [DecisionTree        ]  thr=1.0000  Acc=0.9987  P=0.9751  R=0.9989  F1=0.9869  FPR=0.0013
+2026-05-01 21:39:44,594 - [INFO] -   [RandomForest        ]  thr=0.7200  Acc=0.9997  P=0.9953  R=0.9992  F1=0.9973  FPR=0.0003
+2026-05-01 21:39:45,026 - [INFO] -   [ExtraTrees          ]  thr=0.6600  Acc=0.9997  P=0.9941  R=0.9998  F1=0.9970  FPR=0.0003
+2026-05-01 21:39:45,225 - [INFO] -   [XGBoost             ]  thr=0.6467  Acc=1.0000  P=0.9992  R=0.9998  F1=0.9995  FPR=0.0000
+2026-05-01 21:39:45,440 - [INFO] -   [LightGBM            ]  thr=0.8243  Acc=1.0000  P=0.9998  R=0.9998  F1=0.9998  FPR=0.0000
+2026-05-01 21:39:46,697 - [INFO] -   [IsolationForest     ]  thr=0.4536  Acc=0.6751  P=0.0856  R=0.5679  F1=0.1488  FPR=0.3192
+2026-05-01 21:39:46,697 - [INFO] - Generating standard evaluation figures in ./figures/ ...
+2026-05-01 21:39:49,974 - [INFO] - 
+================================================================================
+2026-05-01 21:39:49,974 - [INFO] - EXPERIMENT 2: Full features WITH hyperparameter tuning
+2026-05-01 21:39:49,974 - [INFO] - ================================================================================
+2026-05-01 21:39:49,974 - [INFO] - [full_tuned] Fitting preprocessor (use_tfidf=True, chi_square=False)...
+2026-05-01 21:39:49,974 - [INFO] - Extracting extended structural features (22 features)...
+2026-05-01 21:39:59,260 - [INFO] - Fitting TF-IDF (max_features=150, ngram_range=(3, 5))...
+2026-05-01 21:40:08,830 - [INFO] - TF-IDF matrix shape: (128000, 150)
+2026-05-01 21:40:37,974 - [INFO] - Preprocessor saved -> ./models_out/preprocessor_full_tuned.pkl
+2026-05-01 21:40:37,974 - [INFO] - [full_tuned] Feature matrix shape after processing: train=(128000, 172) val=(96000, 172) test=(105263, 172)
+2026-05-01 21:40:37,974 - [INFO] - [full_tuned] Performing Chi-Square Feature Analysis...
+2026-05-01 21:40:38,036 - [INFO] - 
+Top 30 Features by Chi-Square Score:
+2026-05-01 21:40:38,037 - [INFO] - ================================================================================
+2026-05-01 21:40:38,038 - [INFO] - 
+                  Feature   Chi2_Score  P_Value Feature_Type
+  comment_indicator_count 56677.000000      0.0   Structural
+punctuation_cluster_count 48588.365287      0.0   Structural
+        parenthesis_depth 18559.975156      0.0   Structural
+  max_consecutive_special 15980.721006      0.0   Structural
+   max_consecutive_digits 12368.940149      0.0   Structural
+     quote_mismatch_score  9927.000000      0.0   Structural
+              token_count  9650.779313      0.0   Structural
+                 tfidf_33  8050.985783      0.0       TF-IDF
+         avg_token_length  7433.707132      0.0   Structural
+                  tfidf_1  6293.493405      0.0       TF-IDF
+                  tfidf_2  6138.511493      0.0       TF-IDF
+                 tfidf_23  4283.713044      0.0       TF-IDF
+                 tfidf_22  4283.713044      0.0       TF-IDF
+                 tfidf_34  4085.831364      0.0       TF-IDF
+                  tfidf_0  3977.381713      0.0       TF-IDF
+                 tfidf_70  3447.950706      0.0       TF-IDF
+comparison_operator_count  2732.059630      0.0   Structural
+                 tfidf_38  2520.466318      0.0       TF-IDF
+                 tfidf_37  2020.045530      0.0       TF-IDF
+          semicolon_count  2009.000000      0.0   Structural
+                tfidf_113  1953.064525      0.0       TF-IDF
+                 tfidf_66  1953.064525      0.0       TF-IDF
+                tfidf_114  1953.064525      0.0       TF-IDF
+                 tfidf_98  1953.064525      0.0       TF-IDF
+                 tfidf_97  1953.064525      0.0       TF-IDF
+                 tfidf_16  1938.459861      0.0       TF-IDF
+                 tfidf_15  1938.459861      0.0       TF-IDF
+                 tfidf_96  1926.468481      0.0       TF-IDF
+                 tfidf_86  1875.957338      0.0       TF-IDF
+                  tfidf_3  1833.612482      0.0       TF-IDF
+2026-05-01 21:40:38,039 - [INFO] - 
+================================================================================
+2026-05-01 21:40:38,039 - [INFO] - Summary by Feature Type:
+2026-05-01 21:40:38,039 - [INFO] - ================================================================================
+2026-05-01 21:40:38,040 - [INFO] - In top 20 features:
+Feature_Type
+Structural    10
+TF-IDF        10
+2026-05-01 21:40:38,494 - [INFO] - [full_tuned] Chi-Square analysis saved to ./figures/
+2026-05-01 21:40:38,494 - [INFO] - [full_tuned] Starting cross-validation for confidence intervals...
+2026-05-01 21:40:38,494 - [INFO] - ------------------------------------------------------------
+2026-05-01 21:40:38,494 - [INFO] - Cross-validation: 5-fold stratified KFold on training data
+2026-05-01 21:40:38,494 - [INFO] - ------------------------------------------------------------
+2026-05-01 21:40:38,509 - [INFO] -   Fold 1/5 ...
+2026-05-01 21:41:11,652 - [INFO] -   Fold 2/5 ...
+2026-05-01 21:41:44,796 - [INFO] -   Fold 3/5 ...
+2026-05-01 21:42:17,880 - [INFO] -   Fold 4/5 ...
+2026-05-01 21:42:51,134 - [INFO] -   Fold 5/5 ...
+2026-05-01 21:43:24,075 - [INFO] - ------------------------------------------------------------
+2026-05-01 21:43:24,075 - [INFO] - Model                  Mean F1      Std      95% CI
+2026-05-01 21:43:24,075 - [INFO] - ------------------------------------------------------------
+2026-05-01 21:43:24,075 - [INFO] -   DecisionTree          0.9986    0.0003    +/-0.0002
+2026-05-01 21:43:24,075 - [INFO] -   RandomForest          0.9996    0.0002    +/-0.0001
+2026-05-01 21:43:24,075 - [INFO] -   ExtraTrees            0.9997    0.0002    +/-0.0001
+2026-05-01 21:43:24,075 - [INFO] -   XGBoost               1.0000    0.0000    +/-0.0000
+2026-05-01 21:43:24,075 - [INFO] -   LightGBM              0.9999    0.0000    +/-0.0000
+2026-05-01 21:43:24,075 - [INFO] -   IsolationForest       0.6828    0.0078    +/-0.0068
+2026-05-01 21:43:24,100 - [INFO] - 
+[full_tuned] CV Summary:
+          Model  CV_Mean_F1  CV_Std_F1  CV_95CI
+   DecisionTree    0.998578   0.000280 0.000246
+   RandomForest    0.999617   0.000152 0.000133
+     ExtraTrees    0.999672   0.000160 0.000140
+        XGBoost    0.999969   0.000033 0.000029
+       LightGBM    0.999930   0.000033 0.000029
+IsolationForest    0.682759   0.007759 0.006801
+
+2026-05-01 21:43:24,100 - [INFO] - [full_tuned] Training models (tune=True, ensembles=False)...
+2026-05-01 21:43:24,100 - [INFO] - Initiating model training phase...
+2026-05-01 21:43:24,100 - [INFO] -   Training set: 128000 samples (benign=64000, malicious=64000)
+2026-05-01 21:43:24,100 - [INFO] -   DecisionTree       hyperparameter search (n_iter=15)...
+2026-05-01 21:46:00,505 - [INFO] -     Best params: {'min_samples_split': 10, 'min_samples_leaf': 10, 'max_depth': 20}
+2026-05-01 21:46:00,505 - [INFO] -     Best CV F1 : 0.9979
+2026-05-01 21:46:00,505 - [INFO] -   DecisionTree       -> 156.41s
+2026-05-01 21:46:00,505 - [INFO] -   RandomForest       hyperparameter search (n_iter=15)...
+2026-05-01 22:15:19,690 - [INFO] -     Best params: {'n_estimators': 300, 'min_samples_split': 20, 'min_samples_leaf': 1, 'max_features': 'sqrt', 'max_depth': 25}
+2026-05-01 22:15:19,690 - [INFO] -     Best CV F1 : 0.9995
+2026-05-01 22:15:19,690 - [INFO] -   RandomForest       -> 1759.19s
+2026-05-01 22:15:19,690 - [INFO] -   ExtraTrees         hyperparameter search (n_iter=15)...
+2026-05-01 22:43:49,924 - [INFO] -     Best params: {'n_estimators': 200, 'min_samples_split': 10, 'max_features': 'sqrt', 'max_depth': 25}
+2026-05-01 22:43:49,924 - [INFO] -     Best CV F1 : 0.9995
+2026-05-01 22:43:49,924 - [INFO] -   ExtraTrees         -> 1710.23s
+2026-05-01 22:43:49,924 - [INFO] -   XGBoost            hyperparameter search (n_iter=15)...
+2026-05-01 22:48:28,531 - [INFO] -     Best params: {'subsample': 0.7, 'n_estimators': 300, 'min_child_weight': 3, 'max_depth': 4, 'learning_rate': 0.2, 'gamma': 0, 'colsample_bytree': 0.7}
+2026-05-01 22:48:28,547 - [INFO] -     Best CV F1 : 0.9999
+2026-05-01 22:48:28,547 - [INFO] -   XGBoost            -> 278.62s
+2026-05-01 22:48:28,547 - [INFO] -   LightGBM           hyperparameter search (n_iter=15)...
+2026-05-01 22:55:00,173 - [INFO] -     Best params: {'subsample': 0.7, 'num_leaves': 31, 'n_estimators': 300, 'min_child_samples': 20, 'max_depth': 15, 'learning_rate': 0.05}
+2026-05-01 22:55:00,173 - [INFO] -     Best CV F1 : 1.0000
+2026-05-01 22:55:00,173 - [INFO] -   LightGBM           -> 391.63s
+2026-05-01 22:55:02,467 - [INFO] -   IsolationForest    trained on 64000 benign samples. Score range: [-0.0762, 0.0825]
+2026-05-01 22:55:02,467 - [INFO] -   IsolationForest    -> 2.29s
+2026-05-01 22:55:02,801 - [INFO] - [full_tuned] Models serialized to ./models_out/
+2026-05-01 22:55:02,801 - [INFO] - [full_tuned] Evaluating on test set...
+2026-05-01 22:55:02,801 - [INFO] - ------------------------------------------------------------
+2026-05-01 22:55:02,801 - [INFO] - Phase 1 - Optimal threshold search on VALIDATION set
+2026-05-01 22:55:02,801 - [INFO] - ------------------------------------------------------------
+2026-05-01 22:55:03,128 - [INFO] -   [DecisionTree        ]  Val F1=0.9967  ->  locked threshold=0.9980
+2026-05-01 22:55:04,231 - [INFO] -   [RandomForest        ]  Val F1=0.9992  ->  locked threshold=0.6978
+2026-05-01 22:55:05,195 - [INFO] -   [ExtraTrees          ]  Val F1=0.9989  ->  locked threshold=0.6687
+2026-05-01 22:55:05,507 - [INFO] -   [XGBoost             ]  Val F1=1.0000  ->  locked threshold=0.6203
+2026-05-01 22:55:05,833 - [INFO] -   [LightGBM            ]  Val F1=1.0000  ->  locked threshold=0.6878
+2026-05-01 22:55:07,251 - [INFO] -   [IsolationForest     ]  Val F1=0.3617  ->  locked threshold=0.4536
+2026-05-01 22:55:07,251 - [INFO] - ------------------------------------------------------------
+2026-05-01 22:55:07,251 - [INFO] - Phase 2 - Final evaluation on TEST set (threshold locked from val)
+2026-05-01 22:55:07,251 - [INFO] - ------------------------------------------------------------
+2026-05-01 22:55:07,570 - [INFO] -   [DecisionTree        ]  thr=0.9980  Acc=0.9994  P=0.9954  R=0.9933  F1=0.9944  FPR=0.0002
+2026-05-01 22:55:08,997 - [INFO] -   [RandomForest        ]  thr=0.6978  Acc=0.9997  P=0.9953  R=0.9990  F1=0.9972  FPR=0.0003
+2026-05-01 22:55:10,047 - [INFO] -   [ExtraTrees          ]  thr=0.6687  Acc=0.9996  P=0.9923  R=0.9996  F1=0.9959  FPR=0.0004
+2026-05-01 22:55:10,419 - [INFO] -   [XGBoost             ]  thr=0.6203  Acc=1.0000  P=0.9994  R=0.9998  F1=0.9996  FPR=0.0000
+2026-05-01 22:55:10,812 - [INFO] -   [LightGBM            ]  thr=0.6878  Acc=1.0000  P=0.9998  R=1.0000  F1=0.9999  FPR=0.0000
+2026-05-01 22:55:12,116 - [INFO] -   [IsolationForest     ]  thr=0.4536  Acc=0.6751  P=0.0856  R=0.5679  F1=0.1488  FPR=0.3192
+2026-05-01 22:55:12,139 - [INFO] - Generating standard evaluation figures in ./figures/ ...
+2026-05-01 22:55:16,889 - [INFO] - Tuning comparison plot saved -> ./figures/tuning_comparison.png
+2026-05-01 22:55:16,889 - [INFO] - 
+================================================================================
+2026-05-01 22:55:16,889 - [INFO] - EXPERIMENT 3: Chi-Square feature selection (75th percentile)
+2026-05-01 22:55:16,889 - [INFO] - ================================================================================
+2026-05-01 22:55:16,889 - [INFO] - [chi_square_75] Fitting preprocessor (use_tfidf=True, chi_square=True)...
+2026-05-01 22:55:16,889 - [INFO] - Extracting extended structural features (22 features)...
+2026-05-01 22:55:27,124 - [INFO] - Fitting TF-IDF (max_features=150, ngram_range=(3, 5))...
+2026-05-01 22:55:36,727 - [INFO] - TF-IDF matrix shape: (128000, 150)
+2026-05-01 22:55:36,828 - [INFO] - Applying chi-square feature selection...
+2026-05-01 22:55:36,892 - [INFO] - Chi-square selection: 129 features (after p-value threshold 0.05)
+2026-05-01 22:55:36,893 - [INFO] - Selected 129 / 172 features
+2026-05-01 22:55:36,893 - [INFO] -   Structural features selected: 16 / 22
+2026-05-01 22:55:36,893 - [INFO] -   TF-IDF features selected: 113 / 150
+2026-05-01 22:55:36,894 - [WARNING] -   Dropped structural features: ['entropy', 'special_char_ratio', 'alpha_ratio', 'whitespace_ratio', 'url_encoding_density', 'hex_encoding_count']
+2026-05-01 22:55:38,471 - [INFO] - Feature selection analysis saved to ./figures/
+2026-05-01 22:55:38,487 - [INFO] - Feature importance details saved to ./figures/feature_selection_details.csv
+2026-05-01 22:56:09,064 - [INFO] - Preprocessor saved -> ./models_out/preprocessor_chi_square_75.pkl
+2026-05-01 22:56:09,064 - [INFO] - [chi_square_75] Feature matrix shape after processing: train=(128000, 129) val=(96000, 129) test=(105263, 129)
+2026-05-01 22:56:09,064 - [INFO] - [chi_square_75] Starting cross-validation for confidence intervals...
+2026-05-01 22:56:09,064 - [INFO] - ------------------------------------------------------------
+2026-05-01 22:56:09,064 - [INFO] - Cross-validation: 5-fold stratified KFold on training data
+2026-05-01 22:56:09,064 - [INFO] - ------------------------------------------------------------
+2026-05-01 22:56:09,079 - [INFO] -   Fold 1/5 ...
+2026-05-01 22:56:34,864 - [INFO] -   Fold 2/5 ...
+2026-05-01 22:56:59,371 - [INFO] -   Fold 3/5 ...
+2026-05-01 22:57:24,269 - [INFO] -   Fold 4/5 ...
+2026-05-01 22:57:49,487 - [INFO] -   Fold 5/5 ...
+2026-05-01 22:58:13,817 - [INFO] - ------------------------------------------------------------
+2026-05-01 22:58:13,817 - [INFO] - Model                  Mean F1      Std      95% CI
+2026-05-01 22:58:13,817 - [INFO] - ------------------------------------------------------------
+2026-05-01 22:58:13,817 - [INFO] -   DecisionTree          0.9987    0.0003    +/-0.0002
+2026-05-01 22:58:13,817 - [INFO] -   RandomForest          0.9997    0.0002    +/-0.0001
+2026-05-01 22:58:13,817 - [INFO] -   ExtraTrees            0.9997    0.0001    +/-0.0001
+2026-05-01 22:58:13,817 - [INFO] -   XGBoost               0.9999    0.0000    +/-0.0000
+2026-05-01 22:58:13,817 - [INFO] -   LightGBM              0.9999    0.0001    +/-0.0000
+2026-05-01 22:58:13,817 - [INFO] -   IsolationForest       0.7116    0.0086    +/-0.0076
+2026-05-01 22:58:13,840 - [INFO] - 
+[chi_square_75] CV Summary:
+          Model  CV_Mean_F1  CV_Std_F1  CV_95CI
+   DecisionTree    0.998703   0.000259 0.000227
+   RandomForest    0.999672   0.000150 0.000132
+     ExtraTrees    0.999664   0.000128 0.000112
+        XGBoost    0.999938   0.000045 0.000039
+       LightGBM    0.999930   0.000051 0.000045
+IsolationForest    0.711630   0.008624 0.007559
+
+2026-05-01 22:58:13,841 - [INFO] - [chi_square_75] Training models (tune=True, ensembles=False)...
+2026-05-01 22:58:13,841 - [INFO] - Initiating model training phase...
+2026-05-01 22:58:13,842 - [INFO] -   Training set: 128000 samples (benign=64000, malicious=64000)
+2026-05-01 22:58:13,842 - [INFO] -   DecisionTree       hyperparameter search (n_iter=15)...
+2026-05-01 22:59:44,823 - [INFO] -     Best params: {'min_samples_split': 10, 'min_samples_leaf': 10, 'max_depth': 20}
+2026-05-01 22:59:44,823 - [INFO] -     Best CV F1 : 0.9978
+2026-05-01 22:59:44,823 - [INFO] -   DecisionTree       -> 90.98s
+2026-05-01 22:59:44,823 - [INFO] -   RandomForest       hyperparameter search (n_iter=15)...
+2026-05-01 23:23:29,486 - [INFO] -     Best params: {'n_estimators': 300, 'min_samples_split': 20, 'min_samples_leaf': 1, 'max_features': 'sqrt', 'max_depth': 25}
+2026-05-01 23:23:29,486 - [INFO] -     Best CV F1 : 0.9995
+2026-05-01 23:23:29,486 - [INFO] -   RandomForest       -> 1424.66s
+2026-05-01 23:23:29,486 - [INFO] -   ExtraTrees         hyperparameter search (n_iter=15)...
+2026-05-01 23:46:17,056 - [INFO] -     Best params: {'n_estimators': 200, 'min_samples_split': 10, 'max_features': 'sqrt', 'max_depth': 25}
+2026-05-01 23:46:17,056 - [INFO] -     Best CV F1 : 0.9994
+2026-05-01 23:46:17,056 - [INFO] -   ExtraTrees         -> 1367.57s
+2026-05-01 23:46:17,056 - [INFO] -   XGBoost            hyperparameter search (n_iter=15)...
+2026-05-01 23:49:40,828 - [INFO] -     Best params: {'subsample': 0.7, 'n_estimators': 300, 'min_child_weight': 3, 'max_depth': 4, 'learning_rate': 0.2, 'gamma': 0, 'colsample_bytree': 0.7}
+2026-05-01 23:49:40,828 - [INFO] -     Best CV F1 : 0.9999
+2026-05-01 23:49:40,828 - [INFO] -   XGBoost            -> 203.77s
+2026-05-01 23:49:40,828 - [INFO] -   LightGBM           hyperparameter search (n_iter=15)...
+2026-05-01 23:55:06,844 - [INFO] -     Best params: {'subsample': 0.7, 'num_leaves': 31, 'n_estimators': 200, 'min_child_samples': 100, 'max_depth': 20, 'learning_rate': 0.05}
+2026-05-01 23:55:06,845 - [INFO] -     Best CV F1 : 0.9999
+2026-05-01 23:55:06,845 - [INFO] -   LightGBM           -> 326.02s
+2026-05-01 23:55:08,648 - [INFO] -   IsolationForest    trained on 64000 benign samples. Score range: [-0.0828, 0.1261]
+2026-05-01 23:55:08,648 - [INFO] -   IsolationForest    -> 1.80s
+2026-05-01 23:55:08,952 - [INFO] - [chi_square_75] Models serialized to ./models_out/
+2026-05-01 23:55:08,952 - [INFO] - [chi_square_75] Evaluating on test set...
+2026-05-01 23:55:08,952 - [INFO] - ------------------------------------------------------------
+2026-05-01 23:55:08,952 - [INFO] - Phase 1 - Optimal threshold search on VALIDATION set
+2026-05-01 23:55:08,952 - [INFO] - ------------------------------------------------------------
+2026-05-01 23:55:09,137 - [INFO] -   [DecisionTree        ]  Val F1=0.9972  ->  locked threshold=0.9167
+2026-05-01 23:55:10,094 - [INFO] -   [RandomForest        ]  Val F1=0.9988  ->  locked threshold=0.6665
+2026-05-01 23:55:10,903 - [INFO] -   [ExtraTrees          ]  Val F1=0.9988  ->  locked threshold=0.6800
+2026-05-01 23:55:11,246 - [INFO] -   [XGBoost             ]  Val F1=1.0000  ->  locked threshold=0.5950
+2026-05-01 23:55:11,520 - [INFO] -   [LightGBM            ]  Val F1=0.9998  ->  locked threshold=0.8608
+2026-05-01 23:55:12,645 - [INFO] -   [IsolationForest     ]  Val F1=0.3605  ->  locked threshold=0.4299
+2026-05-01 23:55:12,645 - [INFO] - ------------------------------------------------------------
+2026-05-01 23:55:12,645 - [INFO] - Phase 2 - Final evaluation on TEST set (threshold locked from val)
+2026-05-01 23:55:12,645 - [INFO] - ------------------------------------------------------------
+2026-05-01 23:55:12,920 - [INFO] -   [DecisionTree        ]  thr=0.9167  Acc=0.9994  P=0.9924  R=0.9949  F1=0.9936  FPR=0.0004
+2026-05-01 23:55:14,111 - [INFO] -   [RandomForest        ]  thr=0.6665  Acc=0.9996  P=0.9934  R=0.9992  F1=0.9963  FPR=0.0003
+2026-05-01 23:55:15,025 - [INFO] -   [ExtraTrees          ]  thr=0.6800  Acc=0.9996  P=0.9934  R=0.9992  F1=0.9963  FPR=0.0003
+2026-05-01 23:55:15,431 - [INFO] -   [XGBoost             ]  thr=0.5950  Acc=0.9999  P=0.9981  R=1.0000  F1=0.9991  FPR=0.0001
+2026-05-01 23:55:15,764 - [INFO] -   [LightGBM            ]  thr=0.8608  Acc=0.9999  P=0.9992  R=0.9996  F1=0.9994  FPR=0.0000
+2026-05-01 23:55:16,998 - [INFO] -   [IsolationForest     ]  thr=0.4299  Acc=0.4893  P=0.0740  R=0.8003  F1=0.1355  FPR=0.5271
+2026-05-01 23:55:17,015 - [INFO] - Generating standard evaluation figures in ./figures/ ...
+2026-05-01 23:55:22,157 - [INFO] - Feature selection impact plot saved -> ./figures/feature_selection_impact.png
+2026-05-01 23:55:22,157 - [INFO] - 
+================================================================================
+2026-05-01 23:55:22,157 - [INFO] - EXPERIMENT 4: Ablation - Structural features ONLY
+2026-05-01 23:55:22,157 - [INFO] - ================================================================================
+2026-05-01 23:55:22,157 - [INFO] - [ablation] Fitting preprocessor (use_tfidf=False, chi_square=False)...
+2026-05-01 23:55:22,157 - [INFO] - Extracting extended structural features (22 features)...
+2026-05-01 23:55:47,415 - [INFO] - Preprocessor saved -> ./models_out/preprocessor_ablation.pkl
+2026-05-01 23:55:47,415 - [INFO] - [ablation] Feature matrix shape after processing: train=(128000, 22) val=(96000, 22) test=(105263, 22)
+2026-05-01 23:55:47,415 - [INFO] - [ablation] Starting cross-validation for confidence intervals...
+2026-05-01 23:55:47,415 - [INFO] - ------------------------------------------------------------
+2026-05-01 23:55:47,415 - [INFO] - Cross-validation: 5-fold stratified KFold on training data
+2026-05-01 23:55:47,415 - [INFO] - ------------------------------------------------------------
+2026-05-01 23:55:47,415 - [INFO] -   Fold 1/5 ...
+2026-05-01 23:56:01,900 - [INFO] -   Fold 2/5 ...
+2026-05-01 23:56:15,667 - [INFO] -   Fold 3/5 ...
+2026-05-01 23:56:29,249 - [INFO] -   Fold 4/5 ...
+2026-05-01 23:56:42,779 - [INFO] -   Fold 5/5 ...
+2026-05-01 23:56:56,121 - [INFO] - ------------------------------------------------------------
+2026-05-01 23:56:56,121 - [INFO] - Model                  Mean F1      Std      95% CI
+2026-05-01 23:56:56,121 - [INFO] - ------------------------------------------------------------
+2026-05-01 23:56:56,121 - [INFO] -   DecisionTree          0.9986    0.0003    +/-0.0002
+2026-05-01 23:56:56,121 - [INFO] -   RandomForest          0.9993    0.0002    +/-0.0001
+2026-05-01 23:56:56,121 - [INFO] -   ExtraTrees            0.9997    0.0001    +/-0.0001
+2026-05-01 23:56:56,121 - [INFO] -   XGBoost               0.9996    0.0001    +/-0.0001
+2026-05-01 23:56:56,121 - [INFO] -   LightGBM              0.9996    0.0001    +/-0.0001
+2026-05-01 23:56:56,121 - [INFO] -   IsolationForest       0.9009    0.0082    +/-0.0072
+2026-05-01 23:56:56,136 - [INFO] - 
+[ablation] CV Summary:
+          Model  CV_Mean_F1  CV_Std_F1  CV_95CI
+   DecisionTree    0.998633   0.000271 0.000237
+   RandomForest    0.999328   0.000164 0.000144
+     ExtraTrees    0.999711   0.000071 0.000062
+        XGBoost    0.999601   0.000085 0.000074
+       LightGBM    0.999555   0.000143 0.000125
+IsolationForest    0.900892   0.008165 0.007157
+
+2026-05-01 23:56:56,136 - [INFO] - [ablation] Training models (tune=False, ensembles=False)...
+2026-05-01 23:56:56,136 - [INFO] - Initiating model training phase...
+2026-05-01 23:56:56,136 - [INFO] -   Training set: 128000 samples (benign=64000, malicious=64000)
+2026-05-01 23:56:57,151 - [INFO] -   DecisionTree       -> 1.01s
+2026-05-01 23:57:08,762 - [INFO] -   RandomForest       -> 11.61s
+2026-05-01 23:57:25,042 - [INFO] -   ExtraTrees         -> 16.28s
+2026-05-01 23:57:25,724 - [INFO] -   XGBoost            -> 0.68s
+2026-05-01 23:57:26,454 - [INFO] -   LightGBM           -> 0.73s
+2026-05-01 23:57:27,693 - [INFO] -   IsolationForest    trained on 64000 benign samples. Score range: [-0.1428, 0.1241]
+2026-05-01 23:57:27,693 - [INFO] -   IsolationForest    -> 1.24s
+2026-05-01 23:57:27,801 - [INFO] - [ablation] Models serialized to ./models_out/
+2026-05-01 23:57:27,801 - [INFO] - [ablation] Evaluating on test set...
+2026-05-01 23:57:27,801 - [INFO] - ------------------------------------------------------------
+2026-05-01 23:57:27,801 - [INFO] - Phase 1 - Optimal threshold search on VALIDATION set
+2026-05-01 23:57:27,801 - [INFO] - ------------------------------------------------------------
+2026-05-01 23:57:27,838 - [INFO] -   [DecisionTree        ]  Val F1=0.9958  ->  locked threshold=1.0000
+2026-05-01 23:57:28,047 - [INFO] -   [RandomForest        ]  Val F1=0.9993  ->  locked threshold=0.5600
+2026-05-01 23:57:28,257 - [INFO] -   [ExtraTrees          ]  Val F1=0.9996  ->  locked threshold=0.5500
+2026-05-01 23:57:28,373 - [INFO] -   [XGBoost             ]  Val F1=0.9995  ->  locked threshold=0.7638
+2026-05-01 23:57:28,464 - [INFO] -   [LightGBM            ]  Val F1=0.9994  ->  locked threshold=0.7086
+2026-05-01 23:57:29,233 - [INFO] -   [IsolationForest     ]  Val F1=0.7326  ->  locked threshold=0.5893
+2026-05-01 23:57:29,233 - [INFO] - ------------------------------------------------------------
+2026-05-01 23:57:29,233 - [INFO] - Phase 2 - Final evaluation on TEST set (threshold locked from val)
+2026-05-01 23:57:29,233 - [INFO] - ------------------------------------------------------------
+2026-05-01 23:57:29,313 - [INFO] -   [DecisionTree        ]  thr=1.0000  Acc=0.9986  P=0.9739  R=0.9983  F1=0.9859  FPR=0.0014
+2026-05-01 23:57:29,565 - [INFO] -   [RandomForest        ]  thr=0.5600  Acc=0.9998  P=0.9964  R=0.9987  F1=0.9975  FPR=0.0002
+2026-05-01 23:57:29,862 - [INFO] -   [ExtraTrees          ]  thr=0.5500  Acc=0.9998  P=0.9972  R=0.9990  F1=0.9981  FPR=0.0001
+2026-05-01 23:57:30,042 - [INFO] -   [XGBoost             ]  thr=0.7638  Acc=0.9999  P=0.9996  R=0.9990  F1=0.9993  FPR=0.0000
+2026-05-01 23:57:30,224 - [INFO] -   [LightGBM            ]  thr=0.7086  Acc=0.9999  P=0.9994  R=0.9987  F1=0.9990  FPR=0.0000
+2026-05-01 23:57:31,031 - [INFO] -   [IsolationForest     ]  thr=0.5893  Acc=0.9148  P=0.3467  R=0.7956  F1=0.4829  FPR=0.0789
+2026-05-01 23:57:31,046 - [INFO] - Generating standard evaluation figures in ./figures/ ...
+2026-05-01 23:57:34,563 - [INFO] - Ablation comparison plot saved -> ./figures/ablation_comparison.png
+2026-05-01 23:57:34,563 - [INFO] - 
+================================================================================
+2026-05-01 23:57:34,563 - [INFO] - EXPERIMENT 5: With random undersampling
+2026-05-01 23:57:34,564 - [INFO] - ================================================================================
+2026-05-01 23:57:34,564 - [INFO] - Loading dataset...
+2026-05-01 23:58:29,231 - [INFO] - Initial sampled dataset: 600000 rows (benign=500000, malicious=100000)
+2026-05-01 23:58:30,331 - [INFO] - Applying random undersampling with ratio 1.0...
+2026-05-01 23:58:30,388 - [INFO] - Original class distribution: Counter({0: 320000, 1: 64000})
+2026-05-01 23:58:30,565 - [INFO] - Resampled class distribution: Counter({1: 64000, 0: 64000})
+2026-05-01 23:58:30,565 - [INFO] - Reduction: 384000 -> 128000 samples (33.3%)
+2026-05-01 23:58:30,619 - [INFO] - Train (after undersampling): 128000 rows [malicious=64000 (50.0%) benign=64000]
+2026-05-01 23:58:30,620 - [INFO] - Val : 96000 rows [malicious=16000 (16.7%) benign=80000]
+2026-05-01 23:58:30,620 - [INFO] - Test: 105263 rows [malicious=5263 (5.0%) benign=100000]
+2026-05-01 23:58:30,767 - [INFO] - [undersampled_random] Fitting preprocessor (use_tfidf=True, chi_square=False)...
+2026-05-01 23:58:30,767 - [INFO] - Extracting extended structural features (22 features)...
+2026-05-01 23:58:41,511 - [INFO] - Fitting TF-IDF (max_features=150, ngram_range=(3, 5))...
+2026-05-01 23:58:51,139 - [INFO] - TF-IDF matrix shape: (128000, 150)
+2026-05-01 23:59:22,941 - [INFO] - Preprocessor saved -> ./models_out/preprocessor_undersampled_random.pkl
+2026-05-01 23:59:22,941 - [INFO] - [undersampled_random] Feature matrix shape after processing: train=(128000, 172) val=(96000, 172) test=(105263, 172)
+2026-05-01 23:59:22,941 - [INFO] - [undersampled_random] Starting cross-validation for confidence intervals...
+2026-05-01 23:59:22,941 - [INFO] - ------------------------------------------------------------
+2026-05-01 23:59:22,942 - [INFO] - Cross-validation: 5-fold stratified KFold on training data
+2026-05-01 23:59:22,942 - [INFO] - ------------------------------------------------------------
+2026-05-01 23:59:22,945 - [INFO] -   Fold 1/5 ...
+2026-05-02 00:00:03,047 - [INFO] -   Fold 2/5 ...
+2026-05-02 00:00:35,924 - [INFO] -   Fold 3/5 ...
+2026-05-02 00:01:08,824 - [INFO] -   Fold 4/5 ...
+2026-05-02 00:01:42,219 - [INFO] -   Fold 5/5 ...
+2026-05-02 00:02:17,839 - [INFO] - ------------------------------------------------------------
+2026-05-02 00:02:17,839 - [INFO] - Model                  Mean F1      Std      95% CI
+2026-05-02 00:02:17,839 - [INFO] - ------------------------------------------------------------
+2026-05-02 00:02:17,855 - [INFO] -   DecisionTree          0.9987    0.0002    +/-0.0002
+2026-05-02 00:02:17,855 - [INFO] -   RandomForest          0.9997    0.0001    +/-0.0001
+2026-05-02 00:02:17,855 - [INFO] -   ExtraTrees            0.9997    0.0001    +/-0.0001
+2026-05-02 00:02:17,855 - [INFO] -   XGBoost               1.0000    0.0000    +/-0.0000
+2026-05-02 00:02:17,855 - [INFO] -   LightGBM              1.0000    0.0000    +/-0.0000
+2026-05-02 00:02:17,855 - [INFO] -   IsolationForest       0.6780    0.0073    +/-0.0064
+2026-05-02 00:02:17,874 - [INFO] - 
+[undersampled_random] CV Summary:
+          Model  CV_Mean_F1  CV_Std_F1  CV_95CI
+   DecisionTree    0.998695   0.000234 0.000205
+   RandomForest    0.999711   0.000109 0.000096
+     ExtraTrees    0.999742   0.000094 0.000082
+        XGBoost    0.999984   0.000021 0.000019
+       LightGBM    0.999953   0.000043 0.000038
+IsolationForest    0.678041   0.007330 0.006425
+
+2026-05-02 00:02:17,874 - [INFO] - [undersampled_random] Training models (tune=True, ensembles=False)...
+2026-05-02 00:02:17,874 - [INFO] - Initiating model training phase...
+2026-05-02 00:02:17,874 - [INFO] -   Training set: 128000 samples (benign=64000, malicious=64000)
+2026-05-02 00:02:17,874 - [INFO] -   DecisionTree       hyperparameter search (n_iter=15)...
+2026-05-02 00:04:38,499 - [INFO] -     Best params: {'min_samples_split': 10, 'min_samples_leaf': 10, 'max_depth': 20}
+2026-05-02 00:04:38,499 - [INFO] -     Best CV F1 : 0.9980
+2026-05-02 00:04:38,499 - [INFO] -   DecisionTree       -> 140.62s
+2026-05-02 00:04:38,499 - [INFO] -   RandomForest       hyperparameter search (n_iter=15)...
+2026-05-02 00:36:13,177 - [INFO] -     Best params: {'n_estimators': 300, 'min_samples_split': 20, 'min_samples_leaf': 1, 'max_features': 'sqrt', 'max_depth': 25}
+2026-05-02 00:36:13,177 - [INFO] -     Best CV F1 : 0.9996
+2026-05-02 00:36:13,177 - [INFO] -   RandomForest       -> 1894.68s
+2026-05-02 00:36:13,177 - [INFO] -   ExtraTrees         hyperparameter search (n_iter=15)...
+2026-05-02 01:11:27,096 - [INFO] -     Best params: {'n_estimators': 200, 'min_samples_split': 10, 'max_features': 'sqrt', 'max_depth': 25}
+2026-05-02 01:11:27,096 - [INFO] -     Best CV F1 : 0.9995
+2026-05-02 01:11:27,096 - [INFO] -   ExtraTrees         -> 2113.92s
+2026-05-02 01:11:27,096 - [INFO] -   XGBoost            hyperparameter search (n_iter=15)...
+2026-05-02 01:16:06,707 - [INFO] -     Best params: {'subsample': 0.7, 'n_estimators': 300, 'min_child_weight': 3, 'max_depth': 4, 'learning_rate': 0.2, 'gamma': 0, 'colsample_bytree': 0.7}
+2026-05-02 01:16:06,707 - [INFO] -     Best CV F1 : 0.9999
+2026-05-02 01:16:06,707 - [INFO] -   XGBoost            -> 279.61s
+2026-05-02 01:16:06,707 - [INFO] -   LightGBM           hyperparameter search (n_iter=15)...
+2026-05-02 01:23:32,778 - [INFO] -     Best params: {'subsample': 0.7, 'num_leaves': 31, 'n_estimators': 300, 'min_child_samples': 20, 'max_depth': 15, 'learning_rate': 0.05}
+2026-05-02 01:23:32,778 - [INFO] -     Best CV F1 : 1.0000
+2026-05-02 01:23:32,778 - [INFO] -   LightGBM           -> 446.07s
+2026-05-02 01:23:34,935 - [INFO] -   IsolationForest    trained on 64000 benign samples. Score range: [-0.0600, 0.0856]
+2026-05-02 01:23:34,935 - [INFO] -   IsolationForest    -> 2.16s
+2026-05-02 01:23:36,560 - [INFO] - [undersampled_random] Models serialized to ./models_out/
+2026-05-02 01:23:36,560 - [INFO] - [undersampled_random] Evaluating on test set...
+2026-05-02 01:23:36,560 - [INFO] - ------------------------------------------------------------
+2026-05-02 01:23:36,560 - [INFO] - Phase 1 - Optimal threshold search on VALIDATION set
+2026-05-02 01:23:36,560 - [INFO] - ------------------------------------------------------------
+2026-05-02 01:23:36,856 - [INFO] -   [DecisionTree        ]  Val F1=0.9973  ->  locked threshold=0.9091
+2026-05-02 01:23:38,162 - [INFO] -   [RandomForest        ]  Val F1=0.9991  ->  locked threshold=0.6487
+2026-05-02 01:23:39,395 - [INFO] -   [ExtraTrees          ]  Val F1=0.9990  ->  locked threshold=0.6975
+2026-05-02 01:23:39,718 - [INFO] -   [XGBoost             ]  Val F1=0.9999  ->  locked threshold=0.8034
+2026-05-02 01:23:40,074 - [INFO] -   [LightGBM            ]  Val F1=1.0000  ->  locked threshold=0.5499
+2026-05-02 01:23:41,462 - [INFO] -   [IsolationForest     ]  Val F1=0.3520  ->  locked threshold=0.5130
+2026-05-02 01:23:41,462 - [INFO] - ------------------------------------------------------------
+2026-05-02 01:23:41,462 - [INFO] - Phase 2 - Final evaluation on TEST set (threshold locked from val)
+2026-05-02 01:23:41,462 - [INFO] - ------------------------------------------------------------
+2026-05-02 01:23:41,860 - [INFO] -   [DecisionTree        ]  thr=0.9091  Acc=0.9995  P=0.9960  R=0.9945  F1=0.9952  FPR=0.0002
+2026-05-02 01:23:43,609 - [INFO] -   [RandomForest        ]  thr=0.6487  Acc=0.9997  P=0.9941  R=0.9994  F1=0.9968  FPR=0.0003
+2026-05-02 01:23:44,915 - [INFO] -   [ExtraTrees          ]  thr=0.6975  Acc=0.9996  P=0.9930  R=0.9998  F1=0.9964  FPR=0.0004
+2026-05-02 01:23:45,327 - [INFO] -   [XGBoost             ]  thr=0.8034  Acc=0.9999  P=0.9991  R=0.9998  F1=0.9994  FPR=0.0001
+2026-05-02 01:23:45,777 - [INFO] -   [LightGBM            ]  thr=0.5499  Acc=1.0000  P=1.0000  R=1.0000  F1=1.0000  FPR=0.0000
+2026-05-02 01:23:47,196 - [INFO] -   [IsolationForest     ]  thr=0.5130  Acc=0.6189  P=0.0774  R=0.6069  F1=0.1374  FPR=0.3805
+2026-05-02 01:23:47,196 - [INFO] - Generating standard evaluation figures in ./figures/ ...
+2026-05-02 01:23:50,882 - [INFO] - 
+================================================================================
+2026-05-02 01:23:50,882 - [INFO] - EXPERIMENT 6: Best config WITH ensemble models + t-SNE
+2026-05-02 01:23:50,882 - [INFO] - ================================================================================
+2026-05-02 01:23:50,882 - [INFO] - Loading dataset...
+2026-05-02 01:24:44,844 - [INFO] - Initial sampled dataset: 600000 rows (benign=500000, malicious=100000)
+2026-05-02 01:24:45,620 - [INFO] - Applying random undersampling with ratio 1.0...
+2026-05-02 01:24:45,662 - [INFO] - Original class distribution: Counter({0: 320000, 1: 64000})
+2026-05-02 01:24:45,878 - [INFO] - Resampled class distribution: Counter({1: 64000, 0: 64000})
+2026-05-02 01:24:45,878 - [INFO] - Reduction: 384000 -> 128000 samples (33.3%)
+2026-05-02 01:24:45,959 - [INFO] - Train (after undersampling): 128000 rows [malicious=64000 (50.0%) benign=64000]
+2026-05-02 01:24:45,959 - [INFO] - Val : 96000 rows [malicious=16000 (16.7%) benign=80000]
+2026-05-02 01:24:45,960 - [INFO] - Test: 105263 rows [malicious=5263 (5.0%) benign=100000]
+2026-05-02 01:24:46,171 - [INFO] - [best_with_ensembles] Fitting preprocessor (use_tfidf=True, chi_square=True)...
+2026-05-02 01:24:46,174 - [INFO] - Extracting extended structural features (22 features)...
+2026-05-02 01:24:57,501 - [INFO] - Fitting TF-IDF (max_features=150, ngram_range=(3, 5))...
+2026-05-02 01:25:08,777 - [INFO] - TF-IDF matrix shape: (128000, 150)
+2026-05-02 01:25:08,838 - [INFO] - Applying chi-square feature selection...
+2026-05-02 01:25:08,906 - [INFO] - Chi-square selection: 129 features (after p-value threshold 0.05)
+2026-05-02 01:25:08,906 - [INFO] - Selected 129 / 172 features
+2026-05-02 01:25:08,906 - [INFO] -   Structural features selected: 16 / 22
+2026-05-02 01:25:08,907 - [INFO] -   TF-IDF features selected: 113 / 150
+2026-05-02 01:25:08,907 - [WARNING] -   Dropped structural features: ['entropy', 'special_char_ratio', 'alpha_ratio', 'whitespace_ratio', 'url_encoding_density', 'hex_encoding_count']
+2026-05-02 01:25:10,290 - [INFO] - Feature selection analysis saved to ./figures/
+2026-05-02 01:25:10,290 - [INFO] - Feature importance details saved to ./figures/feature_selection_details.csv
+2026-05-02 01:25:40,826 - [INFO] - Preprocessor saved -> ./models_out/preprocessor_best_with_ensembles.pkl
+2026-05-02 01:25:40,826 - [INFO] - [best_with_ensembles] Feature matrix shape after processing: train=(128000, 129) val=(96000, 129) test=(105263, 129)
+2026-05-02 01:25:40,826 - [INFO] - [best_with_ensembles] Starting cross-validation for confidence intervals...
+2026-05-02 01:25:40,826 - [INFO] - ------------------------------------------------------------
+2026-05-02 01:25:40,826 - [INFO] - Cross-validation: 5-fold stratified KFold on training data
+2026-05-02 01:25:40,827 - [INFO] - ------------------------------------------------------------
+2026-05-02 01:25:40,837 - [INFO] -   Fold 1/5 ...
+2026-05-02 01:26:09,781 - [INFO] -   Fold 2/5 ...
+2026-05-02 01:26:38,949 - [INFO] -   Fold 3/5 ...
+2026-05-02 01:27:07,811 - [INFO] -   Fold 4/5 ...
+2026-05-02 01:27:32,654 - [INFO] -   Fold 5/5 ...
+2026-05-02 01:27:57,950 - [INFO] - ------------------------------------------------------------
+2026-05-02 01:27:57,950 - [INFO] - Model                  Mean F1      Std      95% CI
+2026-05-02 01:27:57,950 - [INFO] - ------------------------------------------------------------
+2026-05-02 01:27:57,950 - [INFO] -   DecisionTree          0.9987    0.0003    +/-0.0002
+2026-05-02 01:27:57,950 - [INFO] -   RandomForest          0.9997    0.0002    +/-0.0002
+2026-05-02 01:27:57,950 - [INFO] -   ExtraTrees            0.9997    0.0002    +/-0.0002
+2026-05-02 01:27:57,950 - [INFO] -   XGBoost               1.0000    0.0000    +/-0.0000
+2026-05-02 01:27:57,950 - [INFO] -   LightGBM              0.9999    0.0001    +/-0.0001
+2026-05-02 01:27:57,950 - [INFO] -   IsolationForest       0.6906    0.0064    +/-0.0056
+2026-05-02 01:27:57,994 - [INFO] - 
+[best_with_ensembles] CV Summary:
+          Model  CV_Mean_F1  CV_Std_F1  CV_95CI
+   DecisionTree    0.998734   0.000275 0.000241
+   RandomForest    0.999719   0.000202 0.000177
+     ExtraTrees    0.999742   0.000196 0.000172
+        XGBoost    0.999961   0.000028 0.000024
+       LightGBM    0.999906   0.000059 0.000052
+IsolationForest    0.690647   0.006381 0.005593
+
+2026-05-02 01:27:57,994 - [INFO] - [best_with_ensembles] Training models (tune=True, ensembles=True)...
+2026-05-02 01:27:57,995 - [INFO] - Initiating model training phase...
+2026-05-02 01:27:57,995 - [INFO] -   Training set: 128000 samples (benign=64000, malicious=64000)
+2026-05-02 01:27:57,995 - [INFO] -   DecisionTree       hyperparameter search (n_iter=15)...
+2026-05-02 01:29:43,034 - [INFO] -     Best params: {'min_samples_split': 10, 'min_samples_leaf': 10, 'max_depth': 15}
+2026-05-02 01:29:43,034 - [INFO] -     Best CV F1 : 0.9978
+2026-05-02 01:29:43,034 - [INFO] -   DecisionTree       -> 105.04s
+2026-05-02 01:29:43,034 - [INFO] -   RandomForest       hyperparameter search (n_iter=15)...
+2026-05-02 01:56:31,966 - [INFO] -     Best params: {'n_estimators': 300, 'min_samples_split': 20, 'min_samples_leaf': 1, 'max_features': 'sqrt', 'max_depth': 25}
+2026-05-02 01:56:31,966 - [INFO] -     Best CV F1 : 0.9996
+2026-05-02 01:56:31,966 - [INFO] -   RandomForest       -> 1608.93s
+2026-05-02 01:56:31,966 - [INFO] -   ExtraTrees         hyperparameter search (n_iter=15)...
+2026-05-02 02:20:37,870 - [INFO] -     Best params: {'n_estimators': 200, 'min_samples_split': 10, 'max_features': 'sqrt', 'max_depth': 25}
+2026-05-02 02:20:37,870 - [INFO] -     Best CV F1 : 0.9995
+2026-05-02 02:20:37,870 - [INFO] -   ExtraTrees         -> 1445.90s
+2026-05-02 02:20:37,870 - [INFO] -   XGBoost            hyperparameter search (n_iter=15)...
+2026-05-02 02:24:02,196 - [INFO] -     Best params: {'subsample': 0.9, 'n_estimators': 100, 'min_child_weight': 3, 'max_depth': 10, 'learning_rate': 0.2, 'gamma': 0.1, 'colsample_bytree': 0.8}
+2026-05-02 02:24:02,196 - [INFO] -     Best CV F1 : 0.9999
+2026-05-02 02:24:02,212 - [INFO] -   XGBoost            -> 204.34s
+2026-05-02 02:24:02,212 - [INFO] -   LightGBM           hyperparameter search (n_iter=15)...
+2026-05-02 02:29:11,662 - [INFO] -     Best params: {'subsample': 0.7, 'num_leaves': 31, 'n_estimators': 300, 'min_child_samples': 20, 'max_depth': 15, 'learning_rate': 0.05}
+2026-05-02 02:29:11,662 - [INFO] -     Best CV F1 : 0.9999
+2026-05-02 02:29:11,662 - [INFO] -   LightGBM           -> 309.45s
+2026-05-02 02:29:13,801 - [INFO] -   IsolationForest    trained on 64000 benign samples. Score range: [-0.0601, 0.1041]
+2026-05-02 02:29:13,801 - [INFO] -   IsolationForest    -> 2.14s
+2026-05-02 02:29:13,801 - [INFO] - 
+Training ensemble models...
+2026-05-02 02:29:13,817 - [INFO] - Created voting ensemble with 4 models
+2026-05-02 02:30:52,170 - [INFO] -   VotingEnsemble     -> 98.35s
+2026-05-02 02:30:52,170 - [INFO] - Created stacking ensemble with 3 base models
+2026-05-02 02:35:50,897 - [INFO] -   StackingEnsemble   -> 298.73s
+2026-05-02 02:35:51,998 - [INFO] - [best_with_ensembles] Models serialized to ./models_out/
+2026-05-02 02:35:51,998 - [INFO] - [best_with_ensembles] Evaluating on test set...
+2026-05-02 02:35:51,998 - [INFO] - ------------------------------------------------------------
+2026-05-02 02:35:51,998 - [INFO] - Phase 1 - Optimal threshold search on VALIDATION set
+2026-05-02 02:35:51,998 - [INFO] - ------------------------------------------------------------
+2026-05-02 02:35:52,181 - [INFO] -   [DecisionTree        ]  Val F1=0.9956  ->  locked threshold=0.9000
+2026-05-02 02:35:53,238 - [INFO] -   [RandomForest        ]  Val F1=0.9988  ->  locked threshold=0.6516
+2026-05-02 02:35:53,955 - [INFO] -   [ExtraTrees          ]  Val F1=0.9988  ->  locked threshold=0.6547
+2026-05-02 02:35:54,120 - [INFO] -   [XGBoost             ]  Val F1=0.9999  ->  locked threshold=0.7269
+2026-05-02 02:35:54,418 - [INFO] -   [LightGBM            ]  Val F1=0.9999  ->  locked threshold=0.9726
+2026-05-02 02:35:55,489 - [INFO] -   [IsolationForest     ]  Val F1=0.3807  ->  locked threshold=0.5640
+2026-05-02 02:35:57,435 - [INFO] -   [VotingEnsemble      ]  Val F1=0.9999  ->  locked threshold=0.6232
+2026-05-02 02:35:59,024 - [INFO] -   [StackingEnsemble    ]  Val F1=0.9999  ->  locked threshold=0.9353
+2026-05-02 02:35:59,024 - [INFO] - ------------------------------------------------------------
+2026-05-02 02:35:59,024 - [INFO] - Phase 2 - Final evaluation on TEST set (threshold locked from val)
+2026-05-02 02:35:59,024 - [INFO] - ------------------------------------------------------------
+2026-05-02 02:35:59,316 - [INFO] -   [DecisionTree        ]  thr=0.9000  Acc=0.9990  P=0.9835  R=0.9962  F1=0.9898  FPR=0.0009
+2026-05-02 02:36:00,695 - [INFO] -   [RandomForest        ]  thr=0.6516  Acc=0.9996  P=0.9928  R=0.9996  F1=0.9962  FPR=0.0004
+2026-05-02 02:36:01,577 - [INFO] -   [ExtraTrees          ]  thr=0.6547  Acc=0.9995  P=0.9908  R=0.9994  F1=0.9951  FPR=0.0005
+2026-05-02 02:36:01,838 - [INFO] -   [XGBoost             ]  thr=0.7269  Acc=1.0000  P=0.9991  R=1.0000  F1=0.9995  FPR=0.0001
+2026-05-02 02:36:02,238 - [INFO] -   [LightGBM            ]  thr=0.9726  Acc=1.0000  P=0.9998  R=0.9998  F1=0.9998  FPR=0.0000
+2026-05-02 02:36:03,387 - [INFO] -   [IsolationForest     ]  thr=0.5640  Acc=0.6634  P=0.0887  R=0.6181  F1=0.1551  FPR=0.3342
+2026-05-02 02:36:05,602 - [INFO] -   [VotingEnsemble      ]  thr=0.6232  Acc=0.9999  P=0.9989  R=1.0000  F1=0.9994  FPR=0.0001
+2026-05-02 02:36:07,430 - [INFO] -   [StackingEnsemble    ]  thr=0.9353  Acc=1.0000  P=0.9992  R=1.0000  F1=0.9996  FPR=0.0000
+2026-05-02 02:36:07,430 - [INFO] - Generating standard evaluation figures in ./figures/ ...
+2026-05-02 02:36:12,589 - [INFO] - 
+============================================================
+2026-05-02 02:36:12,589 - [INFO] - ⚠️  GENERATING T-SNE VISUALIZATIONS WITH ATTACK TYPE TRACKING
+2026-05-02 02:36:12,589 - [INFO] - ============================================================
+2026-05-02 02:36:12,610 - [INFO] - 
+=================================================================
+2026-05-02 02:36:12,610 - [INFO] - Generating t-SNE Visualizations with Attack Type Tracking
+2026-05-02 02:36:12,610 - [INFO] - =================================================================
+2026-05-02 02:36:12,610 - [INFO] - Computing t-SNE embeddings (perplexity=30, n_iter=1000)...
+2026-05-02 02:36:12,610 - [INFO] - Converting sparse matrix to dense for t-SNE...
+2026-05-02 02:36:12,635 - [WARNING] - Dataset has 105263 samples. Subsampling to 10000 for t-SNE performance.
+2026-05-02 02:36:12,646 - [ERROR] - Failed to compute t-SNE embeddings: TSNE.__init__() got an unexpected keyword argument 'n_iter'
+2026-05-02 02:36:12,747 - [INFO] - 
+================================================================================
+2026-05-02 02:36:12,748 - [INFO] - GENERATING COMPREHENSIVE COMPARISON VISUALIZATIONS
+2026-05-02 02:36:12,748 - [INFO] - ================================================================================
+2026-05-02 02:36:15,427 - [INFO] - 
+================================================================================
+2026-05-02 02:36:15,427 - [INFO] - FINAL EXPERIMENT SUMMARY
+2026-05-02 02:36:15,427 - [INFO] - ================================================================================
+2026-05-02 02:36:15,427 - [INFO] - 
+Baseline:
+2026-05-02 02:36:15,443 - [INFO] -   Best Model: LightGBM
+2026-05-02 02:36:15,443 - [INFO] -   Test F1: 0.9998
+2026-05-02 02:36:15,443 - [INFO] -   Precision: 0.9998
+2026-05-02 02:36:15,443 - [INFO] -   Recall: 0.9998
+2026-05-02 02:36:15,443 - [INFO] -   FPR: 0.0000
+2026-05-02 02:36:15,443 - [INFO] -   Features: 172
+2026-05-02 02:36:15,443 - [INFO] - 
+Tuned:
+2026-05-02 02:36:15,443 - [INFO] -   Best Model: LightGBM
+2026-05-02 02:36:15,443 - [INFO] -   Test F1: 0.9999
+2026-05-02 02:36:15,443 - [INFO] -   Precision: 0.9998
+2026-05-02 02:36:15,443 - [INFO] -   Recall: 1.0000
+2026-05-02 02:36:15,443 - [INFO] -   FPR: 0.0000
+2026-05-02 02:36:15,443 - [INFO] -   Features: 172
+2026-05-02 02:36:15,443 - [INFO] - 
+ChiSquare_75pct:
+2026-05-02 02:36:15,443 - [INFO] -   Best Model: LightGBM
+2026-05-02 02:36:15,443 - [INFO] -   Test F1: 0.9994
+2026-05-02 02:36:15,443 - [INFO] -   Precision: 0.9992
+2026-05-02 02:36:15,443 - [INFO] -   Recall: 0.9996
+2026-05-02 02:36:15,443 - [INFO] -   FPR: 0.0000
+2026-05-02 02:36:15,443 - [INFO] -   Features: 129
+2026-05-02 02:36:15,447 - [INFO] - 
+Structural_Only:
+2026-05-02 02:36:15,447 - [INFO] -   Best Model: XGBoost
+2026-05-02 02:36:15,447 - [INFO] -   Test F1: 0.9993
+2026-05-02 02:36:15,447 - [INFO] -   Precision: 0.9996
+2026-05-02 02:36:15,448 - [INFO] -   Recall: 0.9990
+2026-05-02 02:36:15,448 - [INFO] -   FPR: 0.0000
+2026-05-02 02:36:15,448 - [INFO] -   Features: 22
+2026-05-02 02:36:15,449 - [INFO] - 
+Undersampled_random:
+2026-05-02 02:36:15,449 - [INFO] -   Best Model: LightGBM
+2026-05-02 02:36:15,449 - [INFO] -   Test F1: 1.0000
+2026-05-02 02:36:15,449 - [INFO] -   Precision: 1.0000
+2026-05-02 02:36:15,449 - [INFO] -   Recall: 1.0000
+2026-05-02 02:36:15,450 - [INFO] -   FPR: 0.0000
+2026-05-02 02:36:15,450 - [INFO] -   Features: 172
+2026-05-02 02:36:15,450 - [INFO] - 
+Best_With_Ensembles:
+2026-05-02 02:36:15,451 - [INFO] -   Best Model: LightGBM
+2026-05-02 02:36:15,451 - [INFO] -   Test F1: 0.9998
+2026-05-02 02:36:15,451 - [INFO] -   Precision: 0.9998
+2026-05-02 02:36:15,451 - [INFO] -   Recall: 0.9998
+2026-05-02 02:36:15,451 - [INFO] -   FPR: 0.0000
+2026-05-02 02:36:15,451 - [INFO] -   Features: 129
+2026-05-02 02:36:15,452 - [INFO] - 
+================================================================================
+2026-05-02 02:36:15,452 - [INFO] - OVERALL BEST CONFIGURATION:
+2026-05-02 02:36:15,452 - [INFO] - ================================================================================
+2026-05-02 02:36:15,452 - [INFO] -   Experiment: Undersampled_random
+2026-05-02 02:36:15,452 - [INFO] -   Model: LightGBM
+2026-05-02 02:36:15,452 - [INFO] -   Test F1: 1.0000
+2026-05-02 02:36:15,452 - [INFO] -   Precision: 1.0000
+2026-05-02 02:36:15,452 - [INFO] -   Recall: 1.0000
+2026-05-02 02:36:15,454 - [INFO] -   FPR: 0.0000
+2026-05-02 02:36:15,454 - [INFO] - 
+================================================================================
+2026-05-02 02:36:15,454 - [INFO] - PIPELINE COMPLETE - All results saved to ./figures/
+2026-05-02 02:36:15,454 - [INFO] - ================================================================================
+2026-05-02 02:36:15,465 - [INFO] - 
+All experiments completed successfully!
+2026-05-02 02:36:15,465 - [INFO] - Total experiments run: 6
+2026-05-02 02:36:15,466 - [INFO] - 
+Check ./figures/ for all visualizations and reports
